@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://appsforoffice.microsoft.com/lib/1/hosted/office.js"></script>
+</head>
+<body>
+<script>
+Office.initialize = function () {
+    OfficeRuntime.auth.getAccessToken({ allowSignInPrompt: true })
+        .then(token => {
+            Office.context.ui.messageParent(token);
+        })
+        .catch(error => console.log(error));
+};
+</script>
+</body>
+</html>
