@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<OfficeApp
-  xmlns="http://schemas.microsoft.com/office/appforoffice/1.1"
-  xsi:type="MailApp">
+<OfficeApp xmlns="http://schemas.microsoft.com/office/appforoffice/1.1"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:type="MailApp">
 
-  <Id>YOUR-GUID-HERE</Id>
+  <Id>8e43baba-96ed-44cf-a418-84168c890ace</Id>
   <Version>1.0.0.0</Version>
   <ProviderName>SummitCare</ProviderName>
   <DefaultLocale>en-US</DefaultLocale>
-  <DisplayName DefaultValue="SummitCare Signature"/>
+  <DisplayName DefaultValue="SummitCare Auto Signature"/>
   <Description DefaultValue="Automatically inserts SummitCare signature."/>
 
   <Hosts>
@@ -16,17 +16,30 @@
 
   <Requirements>
     <Sets>
-      <Set Name="Mailbox" MinVersion="1.5"/>
+      <Set Name="Mailbox" MinVersion="1.10"/>
     </Sets>
   </Requirements>
 
-  <FormSettings>
-    <Form xsi:type="ItemCompose">
-      <DesktopSettings>
-        <SourceLocation DefaultValue="https://fportes.github.io/OutlookAddin/index.html"/>
-      </DesktopSettings>
-    </Form>
-  </FormSettings>
-
   <Permissions>ReadWriteItem</Permissions>
+
+  <ExtensionPoint xsi:type="Events">
+    <Event Type="OnMessageCompose" FunctionName="onMessageComposeHandler"/>
+  </ExtensionPoint>
+
+  <WebApplicationInfo>
+    <Id>29104aca-9808-456c-87f5-92d8a14eb768</Id>
+    <Resource>api://29104aca-9808-456c-87f5-92d8a14eb768</Resource>
+    <Scopes>
+      <Scope>openid</Scope>
+      <Scope>profile</Scope>
+      <Scope>User.Read</Scope>
+    </Scopes>
+  </WebApplicationInfo>
+
+  <Resources>
+    <bt:Urls xmlns:bt="http://schemas.microsoft.com/office/officeappbasictypes/1.0">
+      <bt:Url id="functionFile" DefaultValue="https://fportes.github.io/OutlookAddin/index.html"/>
+    </bt:Urls>
+  </Resources>
+
 </OfficeApp>
