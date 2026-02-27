@@ -77,22 +77,33 @@ async function signIn() {
   document.getElementById("mobile").value = user.mobilePhone || "";
 }
 
+<script>
 function generate() {
   const name = document.getElementById("name").value;
   const title = document.getElementById("title").value;
   const office = document.getElementById("office").value;
+  const fax = document.getElementById("fax").value;
   const mobile = document.getElementById("mobile").value;
-  const email = document.getElementById("email").value;
 
   const signature = `
-  <div style="font-family:Gill Sans MT; font-size:12px;">
-    ${name} | ${title}<br>
+  <div style="font-family:'Gill Sans MT', Calibri, sans-serif; font-size:12px; line-height:1.4; color:#333333;">
+    
+    <span style="color:#1F4E79; font-weight:bold;">
+      ${name}
+    </span> | ${title}<br>
+    
     Summit Care Management LLC<br><br>
-    ${office ? "D: " + office + "<br>" : ""}
-    ${fax ? "F: " + fax + "<br>" : ""}
-    ${mobile ? "M: " + mobile + "<br>" : ""}
+    
+    ${office ? "<strong>D:</strong> " + office + "<br>" : ""}
+    ${fax ? "<strong>F:</strong> " + fax + "<br>" : ""}
+    ${mobile ? "<strong>M:</strong> " + mobile + "<br>" : ""}
+    
   </div>
-`;
+  `;
+
+  document.getElementById("output").innerHTML = signature;
+}
+</script>
 
   document.getElementById("output").innerHTML = signature;
 }
