@@ -24,6 +24,7 @@
 
   <ExtensionPoint xsi:type="Events">
     <Event Type="OnMessageCompose" FunctionName="onMessageComposeHandler"/>
+           <SourceLocation DefaultValue="https://fportes.github.io/OutlookAddin/index.html" />
   </ExtensionPoint>
 
   <WebApplicationInfo>
