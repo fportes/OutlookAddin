@@ -25,6 +25,15 @@
 
   <Permissions>ReadWriteItem</Permissions>
 
+  <!-- REQUIRED for validation -->
+  <FormSettings>
+    <Form xsi:type="ItemCompose">
+      <DesktopSettings>
+        <SourceLocation DefaultValue="https://fportes.github.io/OutlookAddin/index.html"/>
+      </DesktopSettings>
+    </Form>
+  </FormSettings>
+
   <VersionOverrides
     xmlns="http://schemas.microsoft.com/office/mailappversionoverrides/1.1"
     xsi:type="VersionOverridesV1_1">
@@ -37,6 +46,7 @@
 
     <Hosts>
       <Host xsi:type="MailHost">
+
         <Runtimes>
           <Runtime resid="WebViewRuntime.Url">
             <Override type="javascript" resid="JSRuntime.Url"/>
