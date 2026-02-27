@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <OfficeApp xmlns="http://schemas.microsoft.com/office/appforoffice/1.1"
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:bt="http://schemas.microsoft.com/office/officeappbasictypes/1.0"
            xsi:type="MailApp">
 
   <Id>8e43baba-96ed-44cf-a418-84168c890ace</Id>
@@ -11,35 +12,33 @@
   <Description DefaultValue="Automatically inserts SummitCare signature."/>
 
   <Hosts>
-    <Host Name="Mailbox"/>
+    <Host xsi:type="MailHost"/>
   </Hosts>
 
   <Requirements>
     <Sets>
-      <Set Name="Mailbox" MinVersion="1.10"/>
+      <Set Name="Mailbox" MinVersion="1.12"/>
     </Sets>
   </Requirements>
 
   <Permissions>ReadWriteItem</Permissions>
 
-  <ExtensionPoint xsi:type="Events">
-    <Event Type="OnMessageCompose" FunctionName="onMessageComposeHandler"/>
-           <SourceLocation DefaultValue="https://fportes.github.io/OutlookAddin/index.html" />
-  </ExtensionPoint>
+  <Runtimes>
+    <Runtime resid="WebViewRuntime.Url">
+      <Override type="javascript" resid="JSRuntime.Url"/>
+    </Runtime>
+  </Runtimes>
 
-  <WebApplicationInfo>
-    <Id>29104aca-9808-456c-87f5-92d8a14eb768</Id>
-    <Resource>api://29104aca-9808-456c-87f5-92d8a14eb768</Resource>
-    <Scopes>
-      <Scope>openid</Scope>
-      <Scope>profile</Scope>
-      <Scope>User.Read</Scope>
-    </Scopes>
-  </WebApplicationInfo>
+  <ExtensionPoints>
+    <ExtensionPoint xsi:type="Events">
+      <Event Type="OnMessageCompose" FunctionName="onMessageComposeHandler"/>
+    </ExtensionPoint>
+  </ExtensionPoints>
 
   <Resources>
-    <bt:Urls xmlns:bt="http://schemas.microsoft.com/office/officeappbasictypes/1.0">
-      <bt:Url id="functionFile" DefaultValue="https://fportes.github.io/OutlookAddin/index.html"/>
+    <bt:Urls>
+      <bt:Url id="WebViewRuntime.Url" DefaultValue="https://fportes.github.io/OutlookAddin/index.html"/>
+      <bt:Url id="JSRuntime.Url" DefaultValue="https://fportes.github.io/OutlookAddin/signature.js"/>
     </bt:Urls>
   </Resources>
 
