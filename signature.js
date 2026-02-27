@@ -1,35 +1,69 @@
-Office.onReady(() => {
-    if (Office.context.mailbox.item) {
-        insertSignatureIfMissing();
-    }
-});
+Office.onReady(() => {});
 
-function insertSignatureIfMissing() {
-    const signatureMarker = "SummitCareSignatureMarker";
+function onMessageComposeHandler(event) {
+    insertSignature().then(() => {
+        event.completed();
+    });
+}
 
-    Office.context.mailbox.item.body.getAsync(
-        Office.CoercionType.Html,
-        function (result) {
-            if (result.status === Office.AsyncResultStatus.Succeeded) {
+async function insertSignature() {
 
-                if (!result.value.includes(signatureMarker)) {
+    const marker = "SummitCareSignatureMarker";
 
-                    const signatureHtml = `
-                        <div id="SummitCareSignatureMarker">
+    return new Promise((resolve) => {
+
+        Office.context.mailbox.item.body.getAsync(
+            Office.CoercionType.Html,
+            async (result) => {
+
+                if (result.status !== Office.AsyncResultStatus.Succeeded) {
+                    resolve();
+                    return;
+                }
+
+                if (result.value.includes(marker)) {
+                    resolve();
+                    return;
+                }
+
+                try {
+
+                    const token = await OfficeRuntime.auth.getAccessToken({
+                        allowSignInPrompt: true
+                    });
+
+                    const response = await fetch(
+                        "https://graph.microsoft.com/v1.0/me",
+                        {
+                            headers: { Authorization: `Bearer ${token}` }
+                        }
+                    );
+
+                    const user = await response.json();
+
+                    const signature = `
+                        <div id="${marker}" style="font-family:Arial; font-size:12px;">
                             <br>
-                            <strong>${Office.context.mailbox.userProfile.displayName}</strong><br>
-                            ${Office.context.mailbox.userProfile.emailAddress}<br>
+                            <strong>${user.displayName || ""}</strong><br>
+                            ${user.jobTitle || ""}<br>
+                            ${user.businessPhones?.[0] || ""}<br>
+                            ${user.mobilePhone || ""}<br>
+                            ${user.mail || ""}<br>
                             SummitCare Management LLC
                             <br><br>
                         </div>
                     `;
 
                     Office.context.mailbox.item.body.prependAsync(
-                        signatureHtml,
-                        { coercionType: Office.CoercionType.Html }
+                        signature,
+                        { coercionType: Office.CoercionType.Html },
+                        () => resolve()
                     );
+
+                } catch {
+                    resolve();
                 }
             }
-        }
-    );
+        );
+    });
 }
