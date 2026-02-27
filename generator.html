@@ -10,7 +10,7 @@
 body { font-family: Arial; padding: 30px; }
 input { width: 300px; margin-bottom: 10px; padding: 6px; }
 button { padding: 8px 14px; margin-top: 10px; margin-right: 5px; }
-#output { margin-top: 20px; border: 1px solid #ccc; padding: 15px; }
+#preview { margin-top: 20px; }
 </style>
 </head>
 <body>
@@ -26,21 +26,26 @@ button { padding: 8px 14px; margin-top: 10px; margin-right: 5px; }
 <label>Job Title</label><br>
 <input id="title"><br>
 
-<label>Office Phone</label><br>
+<label>Direct Phone</label><br>
 <input id="office"><br>
 
 <label>Mobile Phone</label><br>
 <input id="mobile"><br>
 
+<label>Fax</label><br>
+<input id="fax"><br>
+
 <label>Email</label><br>
 <input id="email"><br>
 
 <button onclick="generate()">Generate Signature</button>
-
-<div id="output"></div>
 <button onclick="copySig()">Copy to Clipboard</button>
 
+<div id="preview"></div>
+
 <script>
+
+const brandBlue = "#0086BE";
 
 const msalConfig = {
   auth: {
@@ -82,32 +87,36 @@ function generate() {
   const title = document.getElementById("title").value;
   const office = document.getElementById("office").value;
   const mobile = document.getElementById("mobile").value;
+  const fax = document.getElementById("fax").value;
 
   const signature = `
-  <div style="font-family:'Gill Sans MT', Calibri, sans-serif; font-size:12px; line-height:1.4; color:#333333;">
+  <div style="font-family:Calibri, Arial, sans-serif; font-size:14px; line-height:1.5; color:#333333;">
     
-    <span style="color:#1F4E79; font-weight:bold;">
+    <span style="color:${brandBlue}; font-weight:bold;">
       ${name}
     </span> | ${title}<br>
     
     Summit Care Management LLC<br><br>
     
-    ${office ? "<strong>D:</strong> " + office + "<br>" : ""}
-    ${mobile ? "<strong>M:</strong> " + mobile + "<br>" : ""}
+    ${office ? `<span style="color:${brandBlue}; font-weight:bold;">D:</span> ${office}<br>` : ""}
+    ${mobile ? `<span style="color:${brandBlue}; font-weight:bold;">M:</span> ${mobile}<br>` : ""}
+    ${fax ? `<span style="color:${brandBlue}; font-weight:bold;">F:</span> ${fax}<br>` : ""}
     
   </div>
   `;
 
-  document.getElementById("output").innerHTML = signature;
+  document.getElementById("preview").innerHTML = signature;
 }
 
-function copySig() {
-  const range = document.createRange();
-  range.selectNode(document.getElementById("output"));
-  window.getSelection().removeAllRanges();
-  window.getSelection().addRange(range);
-  document.execCommand("copy");
-  alert("Signature copied. Paste into Outlook Reply Signature.");
+async function copySig() {
+  const preview = document.getElementById("preview");
+
+  const blob = new Blob([preview.innerHTML], { type: "text/html" });
+  const data = [new ClipboardItem({ "text/html": blob })];
+
+  await navigator.clipboard.write(data);
+
+  alert("Signature copied! Please got to Outlook > Setttings > Accounts > Signature and paste this as your reply message.");
 }
 
 </script>
