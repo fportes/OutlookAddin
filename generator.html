@@ -77,12 +77,10 @@ async function signIn() {
   document.getElementById("mobile").value = user.mobilePhone || "";
 }
 
-<script>
 function generate() {
   const name = document.getElementById("name").value;
   const title = document.getElementById("title").value;
   const office = document.getElementById("office").value;
-  const fax = document.getElementById("fax").value;
   const mobile = document.getElementById("mobile").value;
 
   const signature = `
@@ -95,15 +93,10 @@ function generate() {
     Summit Care Management LLC<br><br>
     
     ${office ? "<strong>D:</strong> " + office + "<br>" : ""}
-    ${fax ? "<strong>F:</strong> " + fax + "<br>" : ""}
     ${mobile ? "<strong>M:</strong> " + mobile + "<br>" : ""}
     
   </div>
   `;
-
-  document.getElementById("output").innerHTML = signature;
-}
-</script>
 
   document.getElementById("output").innerHTML = signature;
 }
