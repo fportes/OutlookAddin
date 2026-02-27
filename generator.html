@@ -85,9 +85,8 @@ function generate() {
   const email = document.getElementById("email").value;
 
   const signature = `
-  <div style="font-family:Arial; font-size:12px;">
-    <strong>${name}</strong><br>
-    ${title}<br>
+  <div style="font-family:Gill Sans MT; font-size:9px;">
+    <style="font-size:12px;">${name} | ${title}<br>
     ${office ? "Office: " + office + "<br>" : ""}
     ${mobile ? "Mobile: " + mobile + "<br>" : ""}
     ${email}<br>
