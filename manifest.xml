@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<OfficeApp xmlns="http://schemas.microsoft.com/office/appforoffice/1.1"
-           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-           xmlns:bt="http://schemas.microsoft.com/office/officeappbasictypes/1.0"
-           xsi:type="MailApp">
+<OfficeApp
+  xmlns="http://schemas.microsoft.com/office/appforoffice/1.1"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:bt="http://schemas.microsoft.com/office/officeappbasictypes/1.0"
+  xmlns:mailappor="http://schemas.microsoft.com/office/mailappversionoverrides/1.1"
+  xsi:type="MailApp">
 
   <Id>8e43baba-96ed-44cf-a418-84168c890ace</Id>
   <Version>1.0.0.0</Version>
@@ -12,7 +14,7 @@
   <Description DefaultValue="Automatically inserts SummitCare signature."/>
 
   <Hosts>
-    <Host xsi:type="MailHost"/>
+    <Host Name="Mailbox"/>
   </Hosts>
 
   <Requirements>
@@ -23,23 +25,43 @@
 
   <Permissions>ReadWriteItem</Permissions>
 
-  <Runtimes>
-    <Runtime resid="WebViewRuntime.Url">
-      <Override type="javascript" resid="JSRuntime.Url"/>
-    </Runtime>
-  </Runtimes>
+  <VersionOverrides
+    xmlns="http://schemas.microsoft.com/office/mailappversionoverrides/1.1"
+    xsi:type="VersionOverridesV1_1">
 
-  <ExtensionPoints>
-    <ExtensionPoint xsi:type="Events">
-      <Event Type="OnMessageCompose" FunctionName="onMessageComposeHandler"/>
-    </ExtensionPoint>
-  </ExtensionPoints>
+    <Requirements>
+      <bt:Sets DefaultMinVersion="1.12">
+        <bt:Set Name="Mailbox"/>
+      </bt:Sets>
+    </Requirements>
 
-  <Resources>
-    <bt:Urls>
-      <bt:Url id="WebViewRuntime.Url" DefaultValue="https://fportes.github.io/OutlookAddin/index.html"/>
-      <bt:Url id="JSRuntime.Url" DefaultValue="https://fportes.github.io/OutlookAddin/signature.js"/>
-    </bt:Urls>
-  </Resources>
+    <Hosts>
+      <Host xsi:type="MailHost">
+        <Runtimes>
+          <Runtime resid="WebViewRuntime.Url">
+            <Override type="javascript" resid="JSRuntime.Url"/>
+          </Runtime>
+        </Runtimes>
+
+        <ExtensionPoints>
+          <ExtensionPoint xsi:type="Events">
+            <Event Type="OnMessageCompose"
+                   FunctionName="onMessageComposeHandler"/>
+          </ExtensionPoint>
+        </ExtensionPoints>
+
+      </Host>
+    </Hosts>
+
+    <Resources>
+      <bt:Urls>
+        <bt:Url id="WebViewRuntime.Url"
+                DefaultValue="https://fportes.github.io/OutlookAddin/index.html"/>
+        <bt:Url id="JSRuntime.Url"
+                DefaultValue="https://fportes.github.io/OutlookAddin/signature.js"/>
+      </bt:Urls>
+    </Resources>
+
+  </VersionOverrides>
 
 </OfficeApp>
