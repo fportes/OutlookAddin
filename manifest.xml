@@ -1,1 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OfficeApp
+  xmlns="http://schemas.microsoft.com/office/appforoffice/1.1"
+  xsi:type="MailApp">
 
+  <Id>YOUR-GUID-HERE</Id>
+  <Version>1.0.0.0</Version>
+  <ProviderName>SummitCare</ProviderName>
+  <DefaultLocale>en-US</DefaultLocale>
+  <DisplayName DefaultValue="SummitCare Signature"/>
+  <Description DefaultValue="Automatically inserts SummitCare signature."/>
+
+  <Hosts>
+    <Host Name="Mailbox"/>
+  </Hosts>
+
+  <Requirements>
+    <Sets>
+      <Set Name="Mailbox" MinVersion="1.5"/>
+    </Sets>
+  </Requirements>
+
+  <FormSettings>
+    <Form xsi:type="ItemCompose">
+      <DesktopSettings>
+        <SourceLocation DefaultValue="https://yourdomain.com/index.html"/>
+      </DesktopSettings>
+    </Form>
+  </FormSettings>
+
+  <Permissions>ReadWriteItem</Permissions>
+</OfficeApp>
