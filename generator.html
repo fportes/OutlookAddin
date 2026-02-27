@@ -82,6 +82,8 @@ async function signIn() {
     document.getElementById("title").value = user.jobTitle || "";
     document.getElementById("office").value = (user.businessPhones && user.businessPhones.length > 0) ? user.businessPhones[0] : "";
     document.getElementById("mobile").value = user.mobilePhone || "";
+    
+    
 
   } catch (err) {
     alert("Sign-in failed: " + err.message);
@@ -96,6 +98,7 @@ function generate() {
   const office = document.getElementById("office").value;
   const mobile = document.getElementById("mobile").value;
   const fax = document.getElementById("fax").value;
+  const email = document.getElementById("email").value;
 
 
   const signature = `
