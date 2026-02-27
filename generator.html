@@ -7,7 +7,7 @@
 <script src="https://alcdn.msauth.net/browser/2.38.0/js/msal-browser.min.js"></script>
 
 <style>
-body { font-family: Arial; padding: 30px; }
+body { font-family: Gill Sans MT; padding: 30px; }
 input { width: 300px; margin-bottom: 10px; padding: 6px; }
 button { padding: 8px 14px; margin-top: 10px; margin-right: 5px; }
 #preview { margin-top: 20px; }
@@ -78,8 +78,9 @@ async function signIn() {
   document.getElementById("name").value = user.displayName || "";
   document.getElementById("title").value = user.jobTitle || "";
   document.getElementById("email").value = user.mail || "";
-  document.getElementById("office").value = user.businessPhones?.[0] || "";
+  document.getElementById("office").value = user.officePhone || "";
   document.getElementById("mobile").value = user.mobilePhone || "";
+  document.getElementById("fax").value = user.fax || "";
 }
 
 function generate() {
@@ -90,17 +91,16 @@ function generate() {
   const fax = document.getElementById("fax").value;
 
   const signature = `
-  <div style="font-family:Calibri, Arial, sans-serif; font-size:14px; line-height:1.5; color:#333333;">
+  <div style="font-family:Gill Sans MT; font-size:14px; line-height:1.5; color:#333333;">
     
-    <span style="color:${brandBlue}; font-weight:bold;">
-      ${name}
-    </span> | ${title}<br>
+      ${name} | <span style="color:${brandBlue};">${title} </span><br>
+     
     
     Summit Care Management LLC<br><br>
     
-    ${office ? `<span style="color:${brandBlue}; font-weight:bold;">D:</span> ${office}<br>` : ""}
-    ${mobile ? `<span style="color:${brandBlue}; font-weight:bold;">M:</span> ${mobile}<br>` : ""}
-    ${fax ? `<span style="color:${brandBlue}; font-weight:bold;">F:</span> ${fax}<br>` : ""}
+    ${office ? `<span style="color:${brandBlue};">D:</span> ${office}<br>` : ""}
+    ${mobile ? `<span style="color:${brandBlue};">M:</span> ${mobile}<br>` : ""}
+    ${fax ? `<span style="color:${brandBlue};">F:</span> ${fax}<br>` : ""}
     
   </div>
   `;
