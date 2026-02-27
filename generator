@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>SummitCare Signature Generator</title>
+<style>
+body { font-family: Arial; padding: 30px; }
+input { width: 300px; margin-bottom: 10px; padding: 6px; }
+button { padding: 8px 14px; margin-top: 10px; }
+#output { margin-top: 20px; border: 1px solid #ccc; padding: 15px; }
+</style>
+</head>
+<body>
+
+<h2>SummitCare Reply Signature Generator</h2>
+
+<label>Full Name</label><br>
+<input id="name"><br>
+
+<label>Job Title</label><br>
+<input id="title"><br>
+
+<label>Office Phone</label><br>
+<input id="office"><br>
+
+<label>Mobile Phone</label><br>
+<input id="mobile"><br>
+
+<label>Email</label><br>
+<input id="email"><br>
+
+<button onclick="generate()">Generate Signature</button>
+
+<div id="output"></div>
+<button onclick="copySig()">Copy to Clipboard</button>
+
+<script>
+function generate() {
+  const name = document.getElementById("name").value;
+  const title = document.getElementById("title").value;
+  const office = document.getElementById("office").value;
+  const mobile = document.getElementById("mobile").value;
+  const email = document.getElementById("email").value;
+
+  const signature = `
+  <div style="font-family:Arial; font-size:12px;">
+    <strong>${name}</strong><br>
+    ${title}<br>
+    ${office ? "Office: " + office + "<br>" : ""}
+    ${mobile ? "Mobile: " + mobile + "<br>" : ""}
+    ${email}<br>
+    SummitCare Management LLC
+  </div>
+  `;
+
+  document.getElementById("output").innerHTML = signature;
+}
+
+function copySig() {
+  const range = document.createRange();
+  range.selectNode(document.getElementById("output"));
+  window.getSelection().removeAllRanges();
+  window.getSelection().addRange(range);
+  document.execCommand("copy");
+  alert("Signature copied. Paste it into Outlook Reply Signature.");
+}
+</script>
+
+</body>
+</html>
