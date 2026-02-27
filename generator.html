@@ -96,7 +96,6 @@ function generate() {
   const office = document.getElementById("office").value;
   const mobile = document.getElementById("mobile").value;
   const fax = document.getElementById("fax").value;
-  const fax = document.getElementById("email").value;
 
 
   const signature = `
@@ -110,7 +109,7 @@ function generate() {
     ${office ? `<span style="color:${brandBlue};">D:</span> ${office}<br>` : ""}
     ${mobile ? `<span style="color:${brandBlue};">C:</span> ${mobile}<br>` : ""}
     ${fax ? `<span style="color:${brandBlue};">F:</span> ${fax}<br>` : ""}
-    ${email}<br>
+    ${email ? `${email}<br>` : ""}
     
   </div>
   `;
