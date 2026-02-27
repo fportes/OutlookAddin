@@ -23,7 +23,7 @@
   <FormSettings>
     <Form xsi:type="ItemCompose">
       <DesktopSettings>
-        <SourceLocation DefaultValue="https://yourdomain.com/index.html"/>
+        <SourceLocation DefaultValue="https://fportes.github.io/OutlookAddin/signature.html"/>
       </DesktopSettings>
     </Form>
   </FormSettings>
